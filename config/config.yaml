@@ -1,0 +1,5 @@
+output_path: "/scratch/indikar_root/indikar1/cstansbu/hematokytos/"
+inputs: "config/anndata_paths.txt"
+model_path: "/nfs/turbo/umms-indikar/shared/projects/geneformer/geneformer-12L-30M/"
+gene_norm_path: "/home/cstansbu/git_repositories/Geneformer/geneformer/gene_median_dictionary.pkl"
+token_dict_path: "/home/cstansbu/git_repositories/Geneformer/geneformer/token_dictionary.pkl"
