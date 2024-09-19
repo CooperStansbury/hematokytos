@@ -39,55 +39,44 @@ print(
 )
 
 
+############### INPUT RULES ####################
+include: "rules/gather.smk"
+include: "rules/anndata.smk"
+
+
 rule all:
     input:
         expand(OUTPUT + "raw_anndata/{sid}.h5ad", sid=samples),
-        OUTPUT + "model/training_args.bin",
+        expand(OUTPUT + "processed_anndata/{sid}.h5ad", sid=samples),
+        expand(OUTPUT + "obs/{sid}.csv", sid=samples),
+        expand(OUTPUT + "qc_metrics/{sid}.obs.csv", sid=samples),
+        OUTPUT + "pretrained_model/training_args.bin",
         OUTPUT + "reference/token_dictionary.pkl",
         OUTPUT + "reference/gene_median_dictionary.pkl",
+        OUTPUT + "reference/annotations.gtf",
+        OUTPUT + "reference/gene_table.csv",
+        OUTPUT + "reference/token_map.csv",
+        OUTPUT + "annotation/cell_types.csv",
+        OUTPUT + "merged_anndata/merged_adata.h5ad",
+        OUTPUT + "merged_anndata/combat_adata.h5ad",
+        expand(OUTPUT + "tokenized_data/{data}.dataset", data=['merged_adata', 'combat_adata']),
         
-   
-rule get_raw_anndata:
+        
+rule gpu:
     input:
-        input_df['file_path'].to_list()
-    output:
-        output_paths
-    run:
-        from shutil import copyfile
-        for i, refPath in enumerate(input):
-
-            outPath = output[i]
-            copyfile(refPath, outPath)
-            
-            
-rule get_model_weights:
+        expand(OUTPUT + "pretrained_embeddings/{data}.h5ad", data=['merged_adata', 'combat_adata']),
+        
+        
+        
+rule extract_pretrained_embeddings:
     input:
-        config['model_path']
+        data=OUTPUT + "tokenized_data/{data}.dataset",
+        model=OUTPUT + "pretrained_model/"
     output:
-        train=OUTPUT + "model/training_args.bin",
-        config=OUTPUT + "model/config.json",
-        model=OUTPUT + "model/pytorch_model.bin",
-    params:
-        output_dir=OUTPUT + "model/"
+        OUTPUT + "pretrained_embeddings/{data}.h5ad"
+    conda:
+        "geneformer"
     shell:
-        """cp -r {input}/* {params.output_dir}"""
-            
+        """python scripts/extract_embeddings.py {input.data} \
+        {input.model} {output} """
         
-        
-rule get_token_dict:
-    input:
-        config['token_dict_path']
-    output:
-        OUTPUT + "reference/token_dictionary.pkl"
-    shell:
-        """cp {input} {output}"""
-        
-        
-         
-rule get_gene_lengths:
-    input:
-        config['gene_norm_path']
-    output:
-        OUTPUT + "reference/gene_median_dictionary.pkl"
-    shell:
-        """cp {input} {output}"""
