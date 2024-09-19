@@ -1,5 +1,11 @@
 output_path: "/scratch/indikar_root/indikar1/cstansbu/hematokytos/"
 inputs: "config/anndata_paths.txt"
+gtf_path: "/nfs/turbo/umms-indikar/shared/projects/HSC/data/RefGenome/Homo_sapiens.GRCh38.107.gtf"
+min_cells: 10
+min_genes: 500
+target_sum: '1e6'
+cell_column_map: "config/cell_type_columns.yaml"
+cell_type_map: "config/cell_type_map.yaml"
 model_path: "/nfs/turbo/umms-indikar/shared/projects/geneformer/geneformer-12L-30M/"
 gene_norm_path: "/home/cstansbu/git_repositories/Geneformer/geneformer/gene_median_dictionary.pkl"
 token_dict_path: "/home/cstansbu/git_repositories/Geneformer/geneformer/token_dictionary.pkl"

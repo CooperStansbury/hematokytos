@@ -7,8 +7,8 @@ weng_old2_BMMC_HSPC,/nfs/turbo/umms-indikar/shared/projects/HSC/data/weng_2024/s
 weng_old1_BMMC_HSPC,/nfs/turbo/umms-indikar/shared/projects/HSC/data/weng_2024/scanpy_objects/old1_BMMC_HSPC.h5ad
 weng_young2_HSC,/nfs/turbo/umms-indikar/shared/projects/HSC/data/weng_2024/scanpy_objects/young2_HSC.h5ad
 tabula_sapiens,/nfs/turbo/umms-indikar/shared/projects/HSC/data/tabula_sapiens/tabula_sapiens_filtered.h5ad
-setty_rep1,/nfs/turbo/umms-indikar/shared/projects/HSC/data/setty_2019/human_cd34_bm_rep1.h5ad
-setty_rep2,/nfs/turbo/umms-indikar/shared/projects/HSC/data/setty_2019/human_cd34_bm_rep2.h5ad
-setty_rep3,/nfs/turbo/umms-indikar/shared/projects/HSC/data/setty_2019/human_cd34_bm_rep3.h5ad
 iHSC,/scratch/indikar_root/indikar1/cstansbu/HSC/scanpy/analysis.anndata.h5ad
 sc_fib,/scratch/indikar_root/indikar1/shared_data/single_cell_fibroblast/scanpy/processed.anndata.h5ad
+# setty_rep1,/nfs/turbo/umms-indikar/shared/projects/HSC/data/setty_2019/human_cd34_bm_rep1.h5ad
+# setty_rep2,/nfs/turbo/umms-indikar/shared/projects/HSC/data/setty_2019/human_cd34_bm_rep2.h5ad
+# setty_rep3,/nfs/turbo/umms-indikar/shared/projects/HSC/data/setty_2019/human_cd34_bm_rep3.h5ad
