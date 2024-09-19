@@ -3,11 +3,26 @@ import os
 import pandas as pd
 import numpy as np
 import scanpy as sc
+import yaml
 import scanpy.external as sce
 import anndata as an
 from scipy.sparse import csr_matrix
 
 sc.settings.verbosity = 3 
+
+
+def load_yaml(file_path):
+    """Loads a YAML file and returns its contents as a Python dictionary.
+
+    Args:
+    file_path: The path to the YAML file.
+
+    Returns:
+    A Python dictionary representing the YAML data.
+    """
+    with open(file_path, 'r') as file:
+        data = yaml.safe_load(file)
+    return data
 
 
 def load_annotations(fpath):

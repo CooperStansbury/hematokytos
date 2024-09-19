@@ -80,14 +80,3 @@ rule extract_pretrained_embeddings:
         """python scripts/extract_embeddings.py {input.data} \
         {input.model} {output} """
         
-        
-# rule finetune:
-#     input:
-#         data=
-#         model=OUTPUT + "pretrained_model/",
-#     output:
-#         directory(OUTPUT + "finetuned_model/")
-#     conda: 
-#         "geneformer"
-#     shell:
-#         """python scripts/finetune.py {input.data} """

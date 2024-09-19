@@ -6,11 +6,11 @@
 #SBATCH --mail-type=END,FAIL
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=1
-#SBATCH --mem=1G
+#SBATCH --mem=180G
 #SBATCH --time=36:00:00
 #SBATCH --gpus=1
 
-CONFIG='config/cluster'
+CONFIG='config/gpu'
 CORES=36
 
 ### export the environment 
@@ -20,4 +20,4 @@ conda env export > environment.yml
 cp Snakefile workflow.smk
 
 # run it
-snakemake --profile ${CONFIG} --use-conda --cores ${CORES} --rerun-incomplete --latency-wait 90 --verbose -s workflow.smk 
+snakemake --profile ${CONFIG} --use-conda --cores ${CORES} --rerun-incomplete --latency-wait 90 --verbose -s workflow.smk gpu
