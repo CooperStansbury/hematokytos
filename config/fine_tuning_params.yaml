@@ -1,0 +1,19 @@
+label_column: "standard_cell_type"
+testing_split: 0.3
+exclude_labels:
+  - "iHSC"
+training_args:
+  num_train_epochs: 10
+  lr_scheduler_type: "polynomial"
+  per_device_train_batch_size: 20
+  learning_rate: 0.000804
+  warmup_steps: 1812
+  weight_decay: 0.258828
+cell_state_dict: 
+    state_key: "standardized_cell_type"
+    states: "all"
+classifier_args:
+    freeze_layers: 2
+    num_crossval_splits: 1
+    forward_batch_size: 200
+

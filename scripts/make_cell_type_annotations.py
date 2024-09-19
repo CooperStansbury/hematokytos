@@ -2,21 +2,9 @@ import sys
 import os
 import pandas as pd
 import numpy as np
-import yaml
 
-
-def load_yaml(file_path):
-    """Loads a YAML file and returns its contents as a Python dictionary.
-
-    Args:
-    file_path: The path to the YAML file.
-
-    Returns:
-    A Python dictionary representing the YAML data.
-    """
-    with open(file_path, 'r') as file:
-        data = yaml.safe_load(file)
-    return data
+# local imports
+import utils as ut
 
 
 def process_cell_type_files(file_list, cell_type_columns):
@@ -62,11 +50,11 @@ if __name__ == "__main__":
 
     # Load configuration files
     print("\nLoading cell column mapping...")
-    cell_type_columns = load_yaml(cell_column_path)
+    cell_type_columns = ut.load_yaml(cell_column_path)
     print("Cell column mapping loaded successfully!")
 
     print("\nLoading cell types...")
-    cell_types = load_yaml(cell_types_path)
+    cell_types = ut.load_yaml(cell_types_path)
     print("Cell types loaded successfully!")
 
     # Process cell type files
