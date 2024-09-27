@@ -29,9 +29,6 @@ if __name__ == "__main__":
         key='dataset',
         covariates=['total_counts', 'n_genes'],
     )
-
-    # handle negatives
-    adata.X = np.where(adata.X < 0, 0, adata.X)
     
     # make matrix sparse, reduce the precision
     adata.X = csr_matrix(adata.X.astype('float32'))

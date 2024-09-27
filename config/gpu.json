@@ -12,6 +12,6 @@
     "mailon": "a",
     "mail_type": "FAIL",
     "jobout": "oe",
-    "outfile": "/nfs/turbo/umms-indikar/shared/projects/poreC/runLogs/{rule}.{wildcards}.out"
+    "outfile": "/scratch/indikar_root/indikar1/cstansbu/run_logs/{rule}.{wildcards}.out"
     }
 }
