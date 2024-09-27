@@ -1,76 +1,18 @@
-import sys
-import os
 import pandas as pd 
 import numpy as np
 import anndata as an
 import scanpy as sc
 import pickle
-import matplotlib.pyplot as plt
-import seaborn as sns
-import torch
 
 from datasets import Dataset, load_from_disk, load_dataset
 import geneformer
 
 
-sc.settings.verbosity = 3  
+DEFAULT_NAME_PATH = "/nfs/turbo/umms-indikar/shared/projects/geneformer/geneformer/gene_name_id_dict.pkl"
+DEFAULT_TOKEN_PATH = "/nfs/turbo/umms-indikar/shared/projects/geneformer/token_dictionary.pkl"
+DEFAULT_MEDIAN_PATH = "/nfs/turbo/umms-indikar/shared/projects/geneformer/geneformer/gene_median_dictionary.pkl"
 
 
-
-def load_model(model_path, model_type='Pretrained', n_classes=0, mode='eval'):
-    """
-    Loads a pre-trained or custom model for geneformer perturbations.
-
-    Args:
-        model_path (str): Path to the model file.
-        model_type (str, optional): Type of model ('Pretrained' or custom). Default: 'Pretrained'.
-        n_classes (int, optional): Number of output classes for custom models. Default: 0.
-        mode (str, optional): Mode to load the model in ('eval' or 'train'). Default: 'eval'.
-
-    Returns:
-        The loaded model object.
-    """
-
-    model = geneformer.perturber_utils.load_model(
-        model_type,
-        n_classes,
-        model_path,
-        mode
-    )
-
-    return model
-
-
-
-def load_data_as_dataframe(data_path, num_cells=None, shuffle=False) -> pd.DataFrame:
-    """Loads a dataset, optionally shuffles it, and returns a subset as a Pandas DataFrame.
-
-    Args:
-        data_path: Path to the dataset file.
-        num_cells: Number of cells to include in the subset (default: 100).
-        shuffle: Whether to shuffle the dataset before subsetting (default: True).
-
-    Raises:
-        ValueError: If the requested subset size exceeds the dataset length.
-
-    Returns:
-        The subset of data as a Pandas DataFrame.
-    """
-
-    data = load_from_disk(data_path)
-
-    if shuffle:
-        data = data.shuffle(seed=42)
-
-    if num_cells is None:
-        return data.to_pandas()
-    elif num_cells > len(data):
-        raise ValueError(f"Requested subset size ({num_cells}) exceeds dataset length ({len(data)}). For all cells, use num_cells=`None.'")
-    else:
-        data_subset = data.select([i for i in range(num_cells)])
-        return data_subset.to_pandas()
-    
-    
 def extract_embedding_in_mem(model, data, emb_mode='cell', layer_to_quant=-1, forward_batch_size=10):
     """Extracts embeddings from a model and returns them as a DataFrame.
 
@@ -107,6 +49,86 @@ def extract_embedding_in_mem(model, data, emb_mode='cell', layer_to_quant=-1, fo
         return pd.DataFrame(data)
     else:
         return data
+
+
+
+def load_pickle(path):
+    """Loads a pickled object from the specified file path.
+
+    Args:
+        path (str): The file path to the pickled object.
+
+    Returns:
+        The unpickled object.
+
+    Raises:
+        FileNotFoundError: If the file does not exist.
+        pickle.UnpicklingError: If there's an error unpickling the object.
+    """
+    
+    with open(path, "rb") as f:
+        return pickle.load(f)
+
+    
+def load_model(model_path, model_type='Pretrained', n_classes=0, mode='eval'):
+    """
+    Loads a pre-trained or custom model for geneformer perturbations.
+
+    Args:
+        model_path (str): Path to the model file.
+        model_type (str, optional): Type of model ('Pretrained' or custom). Default: 'Pretrained'.
+        n_classes (int, optional): Number of output classes for custom models. Default: 0.
+        mode (str, optional): Mode to load the model in ('eval' or 'train'). Default: 'eval'.
+
+    Returns:
+        The loaded model object.
+    """
+
+    model = geneformer.perturber_utils.load_model(
+        model_type,
+        n_classes,
+        model_path,
+        mode
+    )
+
+    return model
+
+
+def load_data_as_dataframe(data_path, num_cells=None, shuffle=False) -> pd.DataFrame:
+    """Loads a dataset, optionally shuffles it, and returns a subset as a Pandas DataFrame.
+
+    Args:
+        data_path: Path to the dataset file.
+        num_cells: Number of cells to include in the subset (default: 100).
+        shuffle: Whether to shuffle the dataset before subsetting (default: True).
+
+    Raises:
+        ValueError: If the requested subset size exceeds the dataset length.
+
+    Returns:
+        The subset of data as a Pandas DataFrame.
+    """
+
+    data = load_from_disk(data_path)
+
+    if shuffle:
+        data = data.shuffle(seed=42)
+
+    if num_cells is None:
+        return data.to_pandas()
+    elif num_cells > len(data):
+        raise ValueError(f"Requested subset size ({num_cells}) exceeds dataset length ({len(data)}). For all cells, use num_cells=`None.'")
+    else:
+        data_subset = data.select([i for i in range(num_cells)])
+        return data_subset.to_pandas()
+    
+
+def make_embedding_anndata(embedding_df, data):
+    """A function to make an anndata object of embeddings"""
+
+    adata = an.AnnData(embedding_df.to_numpy())
+    adata.obs = data
+    return adata
     
     
 def embedding_to_adata(df: pd.DataFrame, n_dim: int = None) -> an.AnnData:
@@ -143,49 +165,3 @@ def embedding_to_adata(df: pd.DataFrame, n_dim: int = None) -> an.AnnData:
     adata.var_names = var_index
     adata.obs = metadata_df
     return adata
-
-
-        
-if __name__ == "__main__":
-    data_path = sys.argv[1]
-    model_path = sys.argv[2]
-    output_path = sys.argv[3]
-
-    # Load the data
-    print(f"\nLoading data from {data_path}...")
-    data = load_from_disk(data_path)
-    df = data.to_pandas()
-    print(f"{df.shape=}")    
-    
-    # Load the model
-    print(f"\nLoading model from {model_path}...")
-    model = load_model(model_path)
-    
-    print(f"\nExtracting embeddings...")
-    torch.cuda.empty_cache()
-    embs = extract_embedding_in_mem(
-        model, 
-        data, 
-        layer_to_quant=-1,
-    )
-    print(f"{embs.shape=}")
-
-    embs = embedding_to_adata(embs)
-    embs.obs = df.astype(str)
-    
-    print(f"\nComputing embeddings of embeddings...")
-    sc.tl.pca(embs)
-    sc.pp.neighbors(embs)
-    sc.tl.umap(embs)
-    
-    print(f"\nWriting embeddings to {output_path}...")
-    embs.write(output_path)
-    print("Done!")
-    
-    
-
- 
-    
-    
-    
-    

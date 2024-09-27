@@ -64,7 +64,11 @@ rule all:
         
 rule gpu:
     input:
-        expand(OUTPUT + "pretrained_embeddings/{data}.h5ad", data=['merged_adata', 'combat_adata']),
+        OUTPUT + "pretrained_embeddings/merged_adata.h5ad",
+        OUTPUT + "finetuned_models/merged_adata/finetuning.done",
+        OUTPUT + "finetuned_embeddings/merged_adata.h5ad",
+        
+        # expand(OUTPUT + "pretrained_embeddings/{data}.h5ad", data=['merged_adata', 'combat_adata']),
         
         
         
@@ -80,3 +84,31 @@ rule extract_pretrained_embeddings:
         """python scripts/extract_embeddings.py {input.data} \
         {input.model} {output} """
         
+        
+rule finetune:
+    input:
+        data=OUTPUT + "tokenized_data/{data}.dataset",
+        model=OUTPUT + "pretrained_model/",
+        param_file=config['training_params'],
+    output:
+        flag=touch(OUTPUT + "finetuned_models/{data}/finetuning.done"),
+        model=directory(OUTPUT + "finetuned_models/{data}/"),
+    conda: 
+        "geneformer"
+    shell:
+        """python scripts/finetune.py {input.data} {input.model} \
+        {input.param_file} {output.model}"""
+        
+        
+rule extract_finetuned_embeddings:
+    input:
+        data=OUTPUT + "tokenized_data/merged_adata.dataset",
+    output:
+        OUTPUT + "finetuned_embeddings/merged_adata.h5ad"
+    conda:
+        "geneformer"
+    params:
+        model=OUTPUT + "finetuned_models/merged_adata/240923_geneformer_cellClassifier_hsc/ksplit1/",
+    shell:
+        """python scripts/extract_embeddings.py {input.data} \
+        {params.model} {output} """

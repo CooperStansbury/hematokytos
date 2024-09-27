@@ -95,6 +95,8 @@ rule tokenize_anndata:
          directory(OUTPUT + "tokenized_data/{data}.dataset")
     conda:
         "geneformer"
+    wildcard_constraints:
+        data='|'.join(['merged_adata', 'combat_adata']),
     shell:
         """python scripts/tokenize_anndata.py {input.anndata} \
         {input.annotations} {output}"""
