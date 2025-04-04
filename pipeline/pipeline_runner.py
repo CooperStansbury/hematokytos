@@ -6,6 +6,7 @@ import traceback
 from pathlib import Path
 import yaml
 import json
+import pandas as pd
 import shutil
 import subprocess
 
@@ -44,6 +45,39 @@ def run_command(command, capture_output=False, text=True):
         return 1  # Return a non-zero exit code to indicate failure
 
 
+def create_symlinks(target_dir, input_df):
+    """
+    Creates a directory and symbolic links to a list of paths within that directory.
+
+    Args:
+        target_dir (str): The path to the directory where symlinks will be created.
+        input_df (pd.DataFrame): A list of paths to which symlinks will point.
+    """
+    try:
+        os.makedirs(target_dir, exist_ok=True)  # Create the target directory
+        for _, row in input_df.iterrows():
+            sample_id = row['sample_id']
+            group_id = row['group_id']
+            file_path = row['file_path']
+
+            # build the group path
+            subdir = os.path.join(target_dir, group_id)
+            os.makedirs(subdir, exist_ok=True)
+
+            # handle the extension
+            extension = '.fastq'
+            if "fastq.gz" in file_path:
+                extension = ".fastq.gz"
+
+            new_file_name = f"{sample_id}{extension}"                 
+            symlink_path = os.path.join(subdir, new_file_name)
+            os.symlink(file_path, symlink_path)
+            logging.info(f"\tCreated symlink: {symlink_path} -> {file_path}")
+    
+    except OSError as e:
+        logging.info(f"Error creating symlinks: {e}")
+
+
 def create_output_directory(config, overwrite):
     """
     Creates the output directory specified in the config.
@@ -77,6 +111,21 @@ def create_output_directory(config, overwrite):
         logging.error(f"Failed to create output directory: {e}")
         raise
 
+def check_nextflow_available():
+    """
+    Checks if the 'nextflow' command is available in the system's PATH.
+
+    Raises:
+        RuntimeError: If the 'nextflow' command is not found.
+    """
+    try:
+        subprocess.run(['nextflow', '-version'], capture_output=True, check=True)
+        logging.info("Nextflow is available.")     
+    except FileNotFoundError:
+        raise RuntimeError("Error: The 'nextflow' command is not found. Make sure Nextflow is installed and in your PATH.")
+    except subprocess.CalledProcessError:
+        raise RuntimeError("Error: Nextflow command execution failed. Please verify your Nextflow installation.")
+        
 
 def load_yaml(filepath):
     """
@@ -128,39 +177,39 @@ if __name__ == "__main__":
     logging.info(f"Config file path: {config_path}")
     logging.info(f"Force overwrite: {force}")
 
+    # check nextflow
+    check_nextflow_available()
+
     """ Load the config """
-    config = load_yaml(config_path)
-    logging.info("Loaded configuration:")
-    logging.info(json.dumps(config, indent=4)) 
+    config = load_yaml(config_path)    
+    for k, v_dict in config.items():
+        logging.info(f"Configuration for: {k}")
+        for key, value in v_dict.items():
+            logging.info(f"\t {key} : {value}")
 
     """ Set up the directories """
     working_dir = create_output_directory(config, force)
 
-    """ Set up the moldules """
-    return_code = run_command("module load openjdk")
-    logging.info(f"Loaded openjdk")
-    return_code = run_command("module load singularity")
-    logging.info(f"Loaded singularity")
-    nextflow_path = config['paths']['nextflow']
-    
-    return_code = run_command(f"export PATH='{nextflow_path}:$PATH'")
-    logging.info(f"Set Nextflow path: {nextflow_path}")
-
-    """ set up the nextflow command """
-    fastq_fpaths = config['paths']['fastq_paths']
-    fastq_paths = [x.strip() for x in open(fastq_fpaths) if not x.startswith("#")]
-    logging.info(f"Running pipeline for {len(fastq_paths)} FASTQs from: {fastq_fpaths}")
-
-    fastq_paths_str = " ".join(fastq_paths)
-
+    """ Set up input/output directories """
     # data paths
     output_dir = config['paths']['output_directory']
     ref_dir = config['paths']['ref_genome_dir']
 
-    # nextflow params
-    process_name = config['nextflow']['name']
+    # input paths
+    fastq_fpaths = config['paths']['fastq_paths']
+    input_df = pd.read_csv(fastq_fpaths, comment="#")
+
+    logging.info(f"Running pipeline for {len(input_df)} FASTQs from: {fastq_fpaths}")
+    
+    input_dir = f"{output_dir}fastq"
+    logging.info(f"Compiling inputs to: {input_dir}")
+
+    create_symlinks(input_dir, input_df)
+    
+    """ set up the nextflow command """
+    process_name = config['nextflow']['process_name']
+    sample_name = config['nextflow']['sample_name']
     flow_config = config['nextflow']['nextflow_config']
-    numba_config = config['nextflow']['numba_config']
 
     # pipeline params
     params = []
@@ -170,19 +219,32 @@ if __name__ == "__main__":
 
     nextflow_command = (
         f"nextflow run epi2me-labs/wf-single-cell"
-        f" --fastq {fastq_paths_str}"  
+        f" --fastq {input_dir}"  
         f" --ref_genome_dir {ref_dir}"
         f" --out_dir {output_dir}"
-        f" -w {working_dir}"
-        f" -c {numba_config}"
+        f" --sample {sample_name}"
+        f" -work-dir {working_dir}"
+        f" -c {flow_config}"
+        f" -resume"
         f" -name {process_name}"
+        f" -ansi-log false"
         f" -with-report"
+        f" -with-dag"
+        f" -with-timeline"
+        f" -with-trace"
         f" -profile singularity"
     ) + param_string
 
     logging.info(f" ---------- Prepared Nextflow command: ")
     logging.info(f"{nextflow_command}")
     return_code = run_command(nextflow_command)
+    
+    if not return_code == 0:
+        raise("Pipeline failed!")
+
+    return_code = run_command("nextflow clean -f")
+    logging.info(f"Nextflow clean up complete!")
+    logging.info(f"Pipeline complete!")
     
 
     

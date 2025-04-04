@@ -5,15 +5,15 @@ paths:
     nextflow: "/nfs/turbo/umms-indikar/Ram/tools"
 
 nextflow:
-    name: "hsc_epi2me_nextflow"    
+    process_name: "hsc_epi2me_nextflow"    
+    sample_name: "hsc"    
     nextflow_config: "./nextflow.config"
-    numba_config: "./numba.config"
 
 pipeline: 
     expected_cells: 10000
     kit: "3prime:v3"
-    full_length_only: true
-    threads: 1
+    full_length_only: false
+    threads: 32
     fastq_chunk: 1000000
     barcode_adapter1_suff_length: 10
     barcode_min_quality: 15
