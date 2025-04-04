@@ -1,6 +1,6 @@
-# snakemake stuff
+# pipeline stuff
 .snakemake/*
-
+pipeline/.nextflow/*
 
 
 # Byte-compiled / optimized / DLL files
