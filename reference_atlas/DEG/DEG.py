@@ -89,7 +89,7 @@ if __name__ == "__main__":
     deg.to_parquet(deg_outpath, index=False)
     logging.info(f"Saved {deg.shape[0]} DEGs to: {deg_outpath}")
 
-      """ CELL TYPE DEG """
+    """ CELL TYPE DEG """
     logging.info(f"Starting differential gene expression analysis on `cell_type'...")
 
     sc.tl.rank_genes_groups(
