@@ -89,6 +89,16 @@ if __name__ == "__main__":
     deg.to_parquet(deg_outpath, index=False)
     logging.info(f"Saved {deg.shape[0]} DEGs to: {deg_outpath}")
 
+    """ Filter out rare cell types """
+    # Count number of cells per cell_type
+    cell_counts = adata.obs['cell_type'].value_counts()
+    
+    # Identify cell_types with at least 500 cells
+    valid_cell_types = cell_counts[cell_counts >= 500].index
+    
+    # Filter the AnnData object
+    adata = adata[adata.obs['cell_type'].isin(valid_cell_types)].copy()
+
     """ CELL TYPE DEG """
     logging.info(f"Starting differential gene expression analysis on `cell_type'...")
 
