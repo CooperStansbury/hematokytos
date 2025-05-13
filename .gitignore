@@ -1,6 +1,7 @@
 # pipeline stuff
 .snakemake/*
 pipeline/.nextflow/*
+velocyto_pipeline/.snakemake/*
 
 
 # Byte-compiled / optimized / DLL files
