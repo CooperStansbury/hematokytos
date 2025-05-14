@@ -1,7 +1,8 @@
 # pipeline stuff
+**/.snakemake/*
 .snakemake/*
-pipeline/.nextflow/*
-velocyto_pipeline/.snakemake/*
+pipelines/**/.nextflow/*
+pipelines/**/.snakemake/*
 *.out
 
 
