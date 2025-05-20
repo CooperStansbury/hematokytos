@@ -1,0 +1,43 @@
+models:
+    95m: 
+        model_path : "/nfs/turbo/umms-indikar/shared/projects/foundation_models/geneformer/Geneformer/gf-12L-95M-i4096/"
+        gene_median : "/nfs/turbo/umms-indikar/shared/projects/foundation_models/geneformer/Geneformer/geneformer/gene_median_dictionary_gc95M.pkl"
+        token_dictionary_file : "/nfs/turbo/umms-indikar/shared/projects/foundation_models/geneformer/Geneformer/geneformer/token_dictionary_gc95M.pkl"
+        gene_mapping_file : "/nfs/turbo/umms-indikar/shared/projects/foundation_models/geneformer/Geneformer/geneformer/ensembl_mapping_dict_gc95M.pkl"
+        model_input_size : 4096
+        special_token: true
+    30m: 
+        model_path : "/nfs/turbo/umms-indikar/shared/projects/foundation_models/geneformer/Geneformer/gf-12L-95M-i4096/"
+        gene_median : "/nfs/turbo/umms-indikar/shared/projects/foundation_models/geneformer/Geneformer/geneformer/gene_dictionaries_30m/gene_median_dictionary_gc30M.pkl"
+        token_dictionary_file : "/nfs/turbo/umms-indikar/shared/projects/foundation_models/geneformer/Geneformer/geneformer/gene_dictionaries_30m/token_dictionary_gc30M.pkl"
+        gene_mapping_file : "/nfs/turbo/umms-indikar/shared/projects/foundation_models/geneformer/Geneformer/geneformer/gene_dictionaries_30m/ensembl_mapping_dict_gc30M.pkl"
+        model_input_size : 2048
+        special_token: false
+
+custom_attr_name_dict:
+    cell_type : "cell_type"
+    tissue : "tissue"
+    dataset_id : "dataset_id"
+    basename : "basename"
+
+training_args:
+  num_train_epochs: 2
+  learning_rate: 0.0001
+  lr_scheduler_type: "polynomial"
+  warmup_steps: 25
+  weight_decay: 0.25
+  per_device_train_batch_size: 2
+  seed: 73
+
+cell_state_dict:
+    state_key: "cell_type"
+    states: "all"
+
+classifier_args:
+    max_ncells: 1000000
+    freeze_layers: 2
+    num_crossval_splits: 1
+    forward_batch_size: 5
+
+    
+    

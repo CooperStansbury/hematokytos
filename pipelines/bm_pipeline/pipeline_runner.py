@@ -64,15 +64,23 @@ def create_symlinks(target_dir, input_df):
             subdir = os.path.join(target_dir, group_id)
             os.makedirs(subdir, exist_ok=True)
 
-            # handle the extension
-            extension = '.fastq'
-            if "fastq.gz" in file_path:
-                extension = ".fastq.gz"
-
-            new_file_name = f"{sample_id}{extension}"                 
-            symlink_path = os.path.join(subdir, new_file_name)
-            os.symlink(file_path, symlink_path)
-            logging.info(f"\tCreated symlink: {symlink_path} -> {file_path}")
+            if not os.path.isdir(file_path):
+                # handle the extension
+                extension = '.fastq'
+                if "fastq.gz" in file_path:
+                    extension = ".fastq.gz"
+    
+                new_file_name = f"{sample_id}{extension}"                 
+                symlink_path = os.path.join(subdir, new_file_name)
+                os.symlink(file_path, symlink_path)
+                logging.info(f"\tCreated symlink: {symlink_path} -> {file_path}")
+            else:
+                for file in os.listdir(file_path):
+                    symlink_path = os.path.join(subdir, file)
+                    root_path = os.path.join(file_path, file)
+                    os.symlink(root_path, symlink_path)
+                    logging.info(f"\tCreated symlink: {symlink_path} -> {file_path}")
+                    
     
     except OSError as e:
         logging.info(f"Error creating symlinks: {e}")
