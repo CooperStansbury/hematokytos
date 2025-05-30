@@ -5,6 +5,11 @@ pipelines/**/.nextflow/*
 pipelines/**/.snakemake/*
 *.out
 
+# no GEARs stuff
+notebooks/analysis/tf_networks/data/
+notebooks/analysis/data/go_essential_all/
+notebooks/data/
+notebooks/analysis/data/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
