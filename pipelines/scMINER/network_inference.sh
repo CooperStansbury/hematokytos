@@ -6,7 +6,7 @@
 #SBATCH --mail-user=cstansbu@umich.edu
 #SBATCH --mail-type=END,FAIL
 #SBATCH --mem=150G
-#SBATCH --time=72:00:00
+#SBATCH --time=144:00:00
 #SBATCH --nodes=1                     
 #SBATCH --ntasks=1                    
 #SBATCH --cpus-per-task=8
