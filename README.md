@@ -1,20 +1,30 @@
 # Hematokytos
 
-Hematokytos - 'Blood cell.' 
+Hematokytos - "Blood cell."
 
 
 ## Overview
 
-This project provides tools and pipelines for collecting, integrating, and analyzing single-cell data from direct reprogramming experiments and related native hematopoietic cell types. It includes workflows for preprocessing, quality control, RNA velocity, and downstream cell state characterization, with a focus on hematopoietic stem cells, progenitor cells, endothelial cells and fibroblasts.
+This repository provides a set of pipelines and utilities for collecting, integrating and analysing single-cell data from direct reprogramming experiments and related native hematopoietic cell types. Workflows cover preprocessing, quality control, RNA velocity and network analysis with a focus on hematopoietic stem and progenitor cells.
 
 
 
 ## Repository Structure
 
-- `cc_pipeline/` – Cell cycle raw data pipeline
-- `hsc_pipeline/` – Direct reprogramming raw data pipeline
-- `notebooks/` – Jupyter notebooks for exploratory data analysis and figure generation
+- `pipelines/` – Collection of workflow scripts
+  - `cc_pipeline/` – Nextflow pipeline for cell cycle samples
+  - `bm_pipeline/` – Nextflow pipeline for bone marrow data
+  - `hsc_pipeline/` – Nextflow pipeline for direct reprogramming experiments
+  - `velocyto_pipeline/` – Snakemake workflow for running Velocyto
+  - `DeepCycle/` – Scripts to run the DeepCycle model
+  - `CABYBARA/` – Capybara cell identity assignment scripts
+  - `scMINER/` – Network inference with SJARACNe
+- `notebooks/` – Jupyter notebooks for exploratory analysis and figure generation
 - `reference_atlas/` – Scripts for collecting and annotating reference datasets
-- `resources/` – Gene sets, metadata, and supporting files
-- `velocyto_pipeline/` – RNA velocity pipeline
+- `resources/` – Gene sets, metadata and supporting files
+- `NextCell/` – Exploration of the NextCell algorithm
+- `results/` – Example output tables
+- `utils/` – Small helper modules
+
+Each pipeline directory contains its own README with usage instructions.
 
