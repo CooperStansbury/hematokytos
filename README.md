@@ -20,6 +20,7 @@ This repository provides a set of pipelines and utilities for collecting, integr
   - `CABYBARA/` – Capybara cell identity assignment scripts
   - `scMINER/` – Network inference with SJARACNe
 - `notebooks/` – Jupyter notebooks for exploratory analysis and figure generation
+  (see `notebooks/README.md` for an overview)
 - `reference_atlas/` – Scripts for collecting and annotating reference datasets
 - `resources/` – Gene sets, metadata and supporting files
 - `NextCell/` – Exploration of the NextCell algorithm
