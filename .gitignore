@@ -11,6 +11,9 @@ notebooks/analysis/data/go_essential_all/
 notebooks/data/
 notebooks/analysis/data/
 
+# scanpy caches
+notebooks/analysis/isoforms/cache/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
