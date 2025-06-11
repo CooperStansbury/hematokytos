@@ -95,7 +95,7 @@ single.round.QP.analysis(
   scale.bulk.sc = "scale",
   unix.par = TRUE,
   force.eq = 0,
-  n.cores = 16,
+  n.cores = 24,
   save.to.path = output_dir,
   save.to.filename = prefix,
   bulk.norm = TRUE,

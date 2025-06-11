@@ -1,0 +1,12 @@
+name: sceasy
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  - r-base
+  - r-seurat
+  - r-reticulate
+  - r-sceasy
+  - python=3.9   # minimal Python, only for anndata writing
+  - anndata

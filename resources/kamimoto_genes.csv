@@ -1,0 +1,13 @@
+gene,symbol,role
+Klf1,KLF1,"Promotes erythroid (ME) lineage differentiation"
+Gata1,GATA1,"Promotes ME and granulocyte lineage differentiation"
+Gata2,GATA2,"Maintains stemness in multipotent progenitors (MPPs)"
+Spi1,SPI1,"Promotes granulocyte-monocyte (GM) lineage differentiation"
+Cebpa,CEBPA,"Promotes GM, inhibits ME lineage, promotes granulocyte differentiation"
+Cebpe,CEBPE,"Promotes granulocyte lineage differentiation"
+Gfi1,GFI1,"Promotes granulocyte lineage differentiation"
+Gfi1b,GFI1B,"Promotes ME lineage and erythroid differentiation"
+Irf8,IRF8,"Promotes GM and monocyte differentiation (monocyte vs. granulocyte switch)"
+Lmo2,LMO2,"Maintains stemness in MPPs; promotes erythroid differentiation"
+Runx1,RUNX1,"Maintains stemness in MPPs"
+Fli1,FLI1,"Key for megakaryocyte (Mk) differentiation; maintains stemness"
