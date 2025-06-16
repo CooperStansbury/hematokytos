@@ -8,4 +8,5 @@ Notebooks investigating isoform-specific expression and related processing steps
 - `isoform_plots.ipynb` – Visualise selected isoform expression patterns
 
 ### Archive
-Legacy notebooks kept for reference are stored in the `archive/` subfolder.
+Legacy notebooks are kept in the `archive/` subfolder for reference.
+

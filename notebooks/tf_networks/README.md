@@ -9,4 +9,6 @@ Analyses relating to transcription factor network inference.
 - `scMINER_centrality.ipynb` – Centrality metrics from inferred networks
 - `scMINER_network_plots.ipynb` – Plotting utilities for networks
 - `scMINER_r_network_qc.ipynb` – Quality control for SJARACNe outputs
+- `scMINER_prepare.ipynb` – Formatting data for scMINER
 - `trainfile.py` – Example training script
+

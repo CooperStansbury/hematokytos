@@ -1,10 +1,12 @@
 # Cell Cycle Notebooks
 
-Analyses focusing on cell-cycle state estimation and related quality control.
+Analyses focused on estimating cell-cycle state and assessing quality control metrics.
 
 ## Notebooks
-- `capybara_riba.ipynb` – Capybara comparison for ribosomal genes
+- `capybara_riba.ipynb` – Using Capybara to compare ribosomal gene content
 - `cell_cycle_analysis.ipynb` – General cell-cycle metrics and plots
+- `control_cell_cycle_analysis.ipynb` – Control sample comparisons
 - `deep_cycle.ipynb` – Apply the DeepCycle model
 - `prepare_deepcycle.ipynb` – Prepare inputs for DeepCycle
 - `riba.ipynb` – Investigation of rRNA content
+
