@@ -1,16 +1,18 @@
 # Analysis Notebooks
 
-This folder contains the bulk of the exploratory analyses performed in the project.
-Notebooks are organised by topic with additional subdirectories for larger groups
-of related notebooks.
+This directory contains the bulk of our exploratory analyses and figure preparation workflows.  
+Notebooks are grouped by topic with subfolders collecting related experiments.
 
 ## Subdirectories
+- `benchmarks/` – Scripts comparing datasets and integration strategies
+- `bone_marrow/` – Quality control for bone marrow samples
 - `capybara/` – Experiments using the Capybara label transfer tool
-- `cell_assign/` – Notebooks applying the CellAssign algorithm to our data
-- `cell_cycle/` – Evaluation of cell-cycle state including DeepCycle results
+- `cell_assign/` – Example runs of the CellAssign algorithm
+- `cell_cycle/` – Estimating cell-cycle state and related QC
 - `geneformer/` – Exploration of the Geneformer language model
 - `isoforms/` – Isoform-level expression analysis
 - `reference_analysis/` – Building and interrogating the reference atlas
+- `summary/` – General summaries and dataset overviews
 - `tf_networks/` – Transcription factor network inference with scMINER and others
 - `trajectory_inference/` – Pseudotime and RNA velocity analyses
 
@@ -21,3 +23,5 @@ of related notebooks.
 - `marker_gene_expression.ipynb` – Plot canonical marker genes
 - `scMINER_prepare.ipynb` – Formatting data for network inference
 - `sequencing_summary.ipynb` – Summaries of sequencing metrics
+- `nearest_neighbors.ipynb` – Quick nearest neighbor visualisations
+- `make_colorbar.ipynb` – Utility for consistent plotting colours
