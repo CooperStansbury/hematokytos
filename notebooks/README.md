@@ -1,7 +1,7 @@
 # Analysis Notebooks
 
-This directory contains the bulk of our exploratory analyses and figure preparation workflows.  
-Notebooks are grouped by topic with subfolders collecting related experiments.
+This directory contains the bulk of our exploratory analyses and figure preparation workflows.
+Notebooks are grouped by topic with subfolders collecting related experiments. Each subfolder contains a small README describing its contents.
 
 ## Subdirectories
 - `benchmarks/` – Scripts comparing datasets and integration strategies
