@@ -1,6 +1,6 @@
 # Geneformer Notebooks
 
-Exploratory work with the Geneformer transformer model for single-cell data.
+Exploratory work with the Geneformer transformer model for single-cell data, including fine-tuning and perturbation experiments.
 
 ## Notebooks
 - `geneformer_impulse.ipynb` – Test the impulse fine-tuning workflow
