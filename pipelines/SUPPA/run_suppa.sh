@@ -21,6 +21,7 @@ log "Generating alternative splicing events with SUPPA (ioi) mode"
 python "$SUPPA_PATH" generateEvents \
     -i "$GTF_PATH" \
     -o "$OUTPUT_PATH" \
+    --pool-genes \
     --f ioi
 
 log "Generating alternative splicing events with SUPPA (ioe) mode"
@@ -28,6 +29,7 @@ python "$SUPPA_PATH" generateEvents \
     -i "$GTF_PATH" \
     -o "$OUTPUT_PATH" \
     -f ioe \
+    --pool-genes \
     --event-type SE SS MX RI FL
 
 log "SUPPA finished"
