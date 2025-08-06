@@ -1,6 +1,7 @@
 # Isoform Analysis Notebooks
 
-Notebooks investigating isoform-specific expression and related processing steps, including construction of isoform-level count matrices.
+Notebooks investigating isoform-specific expression and related processing
+steps, including construction of isoform-level count matrices.
 
 ## Notebooks
 - `build_raw_isoform_adata.ipynb` – Create AnnData objects with isoform counts

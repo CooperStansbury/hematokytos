@@ -1,13 +1,10 @@
 # Hematokytos
 
-Hematokytos - "Blood cell."
-
-
-## Overview
-
-This repository provides a set of pipelines and utilities for collecting, integrating and analysing single-cell data from direct reprogramming experiments and related native hematopoietic cell types. Workflows cover preprocessing, quality control, RNA velocity and network analysis with a focus on hematopoietic stem and progenitor cells.
-
-
+Hematokytos ("blood cell") collects pipelines and utilities for gathering,
+integrating, and analysing single-cell data from direct reprogramming
+experiments alongside native hematopoietic cell types. Workflows cover
+preprocessing, quality control, RNA velocity, and network analysis with a
+focus on hematopoietic stem and progenitor cells.
 
 ## Repository Structure
 

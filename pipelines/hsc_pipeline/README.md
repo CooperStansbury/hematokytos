@@ -1,6 +1,6 @@
 # `pipeline_runner.py`
 
-This script runs the [Epi2me Labs `wf-single-cell`](https://github.com/epi2me-labs/wf-single-cell) Nextflow pipeline using a YAML configuration file. It sets up the environment, manages output directories, and builds the pipeline command based on user-provided parameters.
+`pipeline_runner.py` wraps the [Epi2me Labs `wf-single-cell`](https://github.com/epi2me-labs/wf-single-cell) Nextflow pipeline using a YAML configuration file. It prepares the environment, manages output directories, and builds the pipeline command from user-provided parameters.
 
 ## Requirements
 

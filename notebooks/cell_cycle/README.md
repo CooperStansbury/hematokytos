@@ -1,6 +1,7 @@
 # Cell Cycle Notebooks
 
-Analyses focused on estimating cell-cycle state and assessing related quality control metrics such as rRNA content.
+Analyses focused on estimating cell-cycle state and assessing related
+quality-control metrics such as rRNA content.
 
 ## Notebooks
 - `capybara_riba.ipynb` – Using Capybara to compare ribosomal gene content

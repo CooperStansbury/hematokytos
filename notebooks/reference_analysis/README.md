@@ -1,6 +1,8 @@
 # Reference Analysis Notebooks
 
-Workflows for constructing and analysing the reference atlas used throughout the project. They collect public hematopoietic datasets, harmonise annotations and generate figures.
+Workflows for constructing and analysing the reference atlas used
+throughout the project. They collect public hematopoietic datasets,
+harmonise annotations and generate figures.
 
 ## Notebooks
 - `build_reference.ipynb` – Generate the combined reference dataset

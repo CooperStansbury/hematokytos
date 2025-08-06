@@ -1,6 +1,7 @@
 # Trajectory Inference Notebooks
 
-Pseudotime ordering and RNA velocity analyses exploring lineage relationships in reprogrammed and native cells.
+Pseudotime ordering and RNA velocity analyses exploring lineage
+relationships in reprogrammed and native cells.
 
 ## Notebooks
 - `make_pseudotime.ipynb` – Calculate pseudotime ordering

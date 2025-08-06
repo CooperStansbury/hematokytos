@@ -1,6 +1,7 @@
 # Resource Files
 
-This directory collects gene sets, metadata and auxiliary files used across the pipelines and notebooks.
+This directory collects gene sets, metadata, and auxiliary files used
+across pipelines and notebooks.
 
 ## Gene sets
 - `CellMarker_2024.txt` – Canonical markers from the 2024 CellMarker release
