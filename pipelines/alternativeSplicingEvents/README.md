@@ -44,8 +44,12 @@ library(alternativeSplicingEvents.hg38)
 
 To ensure a clean and reproducible workflow, it's best to create a dedicated Conda environment for this analysis. This environment, named `altsplicing`, will contain the required Bioconductor package and all its dependencies.
 
-Use the following command in your terminal to create and populate the environment using **Mamba**.
+Use the following command in your terminal to create and populate the environment using **Mamba**:
 
 ```bash
 mamba create -n altsplicing -c conda-forge -c bioconda bioconductor-alternativesplicingevents.hg38
+mamba activate altsplicing
 ```
+
+After activating the environment you can import the package within R as
+shown above.

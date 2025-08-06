@@ -1,6 +1,8 @@
 # Velocyto Pipeline
 
-A Snakemake workflow for generating spliced and unspliced count matrices using [Velocyto](https://velocyto.org/). The pipeline merges BAM files, prepares barcodes and runs `velocyto.py`.
+A Snakemake workflow for generating spliced and unspliced count matrices
+using [Velocyto](https://velocyto.org/). The pipeline merges BAM files,
+prepares barcodes and runs `velocyto.py`.
 
 ## Contents
 - `Snakefile` – Main workflow description
@@ -16,4 +18,4 @@ Adjust paths in `config.yaml` and run:
 snakemake --use-conda --cores 32
 ```
 
-Alternatively submit `slurm_submit.sh` to your cluster.
+Alternatively submit `slurm_submit.sh` on a cluster scheduler.
